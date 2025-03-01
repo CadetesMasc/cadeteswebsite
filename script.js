@@ -70,3 +70,41 @@ function changeBackground() {
 
 setInterval(changeBackground, 5000)
 changeBackground() // Run immediately on page load
+
+function myFunction() {
+  var x = document.getElementById('myNavbar')
+  if (x.className === 'navbar') {
+    x.className += ' responsive'
+  } else {
+    x.className = 'navbar'
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const links = document.querySelectorAll('.navbar a')
+
+  links.forEach((link) => {
+    link.addEventListener('click', function () {
+      links.forEach((l) => l.classList.remove('active')) // Remove active class from all links
+      this.classList.add('active') // Add active class to clicked link
+    })
+  })
+})
+
+function showPage(pageId) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach((page) => {
+    page.classList.remove('active')
+  })
+
+  // Show the selected page
+  document.getElementById(pageId).classList.add('active')
+
+  // Update active navbar link
+  document.querySelectorAll('.navbar a').forEach((link) => {
+    link.classList.remove('active')
+    if (link.getAttribute('onclick') === `showPage('${pageId}')`) {
+      link.classList.add('active')
+    }
+  })
+}
