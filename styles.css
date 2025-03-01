@@ -53,7 +53,51 @@ body::before {
   background-color: #252525;
   color: white;
 }
+.navbar .icon {
+  display: none;
+}
 
+.page {
+  display: none;
+  /* Hide all pages initially */
+  padding: 80px 20px;
+  /* Add padding to prevent text from being covered by navbar */
+  height: 100vh;
+}
+
+/* Show active page */
+.page.active {
+  display: block;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar a:not(:first-child) {
+    display: none;
+  }
+
+  .navbar a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar.responsive {
+    position: relative;
+  }
+
+  .navbar.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
 
 .text-box {
   position: absolute;
