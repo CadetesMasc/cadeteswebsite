@@ -8,23 +8,48 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 
-  <div class="navbar">
-    <a class="active" href="index.html">Início</a>
-    <a href="team.html">Equipa</a>
-    <a href="calender.html">Calendário</a>
-    <a href="videos.html">Videos</a>
+  <div class="navbar" id="myNavbar">
+    <a href="#" onclick="showPage('home')">Início</a>
+    <a href="#" onclick="showPage('team')">Equipa</a>
+    <a href="#" onclick="showPage('calendar')">Calendário</a>
+    <a href="#" onclick="showPage('videos')">Vídeos</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
   </div>
 
-  <div class="text-box">
-    <h1>Bem vindo ao Cadetes Masculinos Fiães</h1>
+  <div id="home" class="page active">
+    <div class="text-box">
+      <h1>Bem-vindo ao Cadetes Masculinos Fiães</h1>
+    </div>
   </div>
 
+  <div id="team" class="page">
+    <div class="text-box">
+      <h1>Página da Equipa</h1>
+      <p>Conteúdo da Equipa...</p>
+    </div> <!-- Fixed closing tag -->
+  </div>
 
+  <div id="calendar" class="page">
+    <div class="text-box">
+      <h1>Página do Calendário</h1>
+      <p>Agenda de jogos...</p>
+    </div>
+  </div>
+
+  <div id="videos" class="page">
+    <div class="text-box">
+      <h1>Página de Vídeos</h1>
+      <p>Vídeos da equipa...</p>
+    </div> <!-- Fixed closing tag -->
+  </div>
 
   <script src="script.js"></script>
 </body>
