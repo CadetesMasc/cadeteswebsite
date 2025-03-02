@@ -15,26 +15,19 @@ const images = [
 
 let lastIndex = -1
 const body = document.body
+
+// Create background element
 const bgElement = document.createElement('div')
-
-// Setup the background div (this avoids issues with the body's default behavior)
-bgElement.style.position = 'fixed'
-bgElement.style.top = '0'
-bgElement.style.left = '0'
-bgElement.style.width = '100%'
-bgElement.style.height = '100%'
-bgElement.style.backgroundSize = 'cover'
-bgElement.style.backgroundPosition = 'center'
-bgElement.style.backgroundRepeat = 'no-repeat'
-bgElement.style.backgroundAttachment = 'fixed'
-bgElement.style.transition = 'opacity 1s ease-in-out'
-bgElement.style.zIndex = '-1'
-
-body.appendChild(bgElement)
+bgElement.id = 'bgElement'
+document.body.appendChild(bgElement)
 
 function changeBackground() {
-  let randomIndex
+  // Only change the background if the home page is active
+  if (!document.getElementById('home').classList.contains('active')) {
+    return
+  }
 
+  let randomIndex
   do {
     randomIndex = Math.floor(Math.random() * images.length)
   } while (randomIndex === lastIndex)
@@ -56,7 +49,7 @@ function changeBackground() {
   newBg.style.transition = 'opacity 1s ease-in-out'
   newBg.style.zIndex = '-1'
 
-  body.appendChild(newBg)
+  document.body.appendChild(newBg)
 
   setTimeout(() => {
     newBg.style.opacity = '1'
@@ -67,9 +60,6 @@ function changeBackground() {
     newBg.remove()
   }, 1000)
 }
-
-setInterval(changeBackground, 5000)
-changeBackground() // Run immediately on page load
 
 function myFunction() {
   var x = document.getElementById('myNavbar')
@@ -85,26 +75,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
   links.forEach((link) => {
     link.addEventListener('click', function () {
-      links.forEach((l) => l.classList.remove('active')) // Remove active class from all links
-      this.classList.add('active') // Add active class to clicked link
+      links.forEach((l) => l.classList.remove('active'))
+      this.classList.add('active')
     })
   })
 })
 
 function showPage(pageId) {
-  // Hide all pages
   document.querySelectorAll('.page').forEach((page) => {
     page.classList.remove('active')
   })
 
-  // Show the selected page
   document.getElementById(pageId).classList.add('active')
 
-  // Update active navbar link
   document.querySelectorAll('.navbar a').forEach((link) => {
     link.classList.remove('active')
     if (link.getAttribute('onclick') === `showPage('${pageId}')`) {
       link.classList.add('active')
     }
   })
+
+  // Show image background only on home page
+  if (pageId === 'home') {
+    bgElement.style.display = 'block'
+    changeBackground()
+  } else {
+    bgElement.style.display = 'none'
+  }
 }
+
+// Set initial background on home page load
+if (document.getElementById('home').classList.contains('active')) {
+  bgElement.style.display = 'block'
+  changeBackground()
+}
+
+// Change background every 5 seconds, but only if home page is active
+setInterval(() => {
+  if (document.getElementById('home').classList.contains('active')) {
+    changeBackground()
+  }
+}, 5000)
