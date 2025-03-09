@@ -16,13 +16,11 @@ const images = [
 let lastIndex = -1
 const body = document.body
 
-// Create background element
 const bgElement = document.createElement('div')
 bgElement.id = 'bgElement'
 document.body.appendChild(bgElement)
 
 function changeBackground() {
-  // Only change the background if the home page is active
   if (!document.getElementById('home').classList.contains('active')) {
     return
   }
@@ -86,6 +84,21 @@ function showPage(pageId) {
     page.classList.remove('active')
   })
 
+  const selectedPage = document.getElementById(pageId)
+  selectedPage.classList.add('active')
+
+  if (pageId === 'videos') {
+    const videoPlayer = document.getElementById('videoPlayer')
+    if (videoPlayer && !videoPlayer.paused) {
+      videoPlayer.play()
+    }
+  } else {
+    const videoPlayer = document.getElementById('videoPlayer')
+    if (videoPlayer && !videoPlayer.paused) {
+      videoPlayer.pause()
+    }
+  }
+
   document.getElementById(pageId).classList.add('active')
 
   document.querySelectorAll('.navbar a').forEach((link) => {
@@ -95,7 +108,6 @@ function showPage(pageId) {
     }
   })
 
-  // Show image background only on home page
   if (pageId === 'home') {
     bgElement.style.display = 'block'
     changeBackground()
@@ -104,15 +116,35 @@ function showPage(pageId) {
   }
 }
 
-// Set initial background on home page load
 if (document.getElementById('home').classList.contains('active')) {
   bgElement.style.display = 'block'
   changeBackground()
 }
 
-// Change background every 5 seconds, but only if home page is active
 setInterval(() => {
   if (document.getElementById('home').classList.contains('active')) {
     changeBackground()
   }
 }, 5000)
+
+function toggleFolder(folderId) {
+  const folder = document.getElementById(folderId)
+
+  // Check if the folder content is hidden or not
+  if (folder.style.display === 'none' || folder.style.display === '') {
+    folder.style.display = 'block' // Show the folder content
+  } else {
+    folder.style.display = 'none' // Hide the folder content
+  }
+}
+
+function changeVideo(videoFile) {
+  var videoPlayer = document.getElementById('videoPlayer')
+
+  console.log('Changing video to:', videoFile)
+  videoPlayer.pause()
+  videoPlayer.currentTime = 0
+  videoPlayer.src = videoFile
+  videoPlayer.load()
+  videoPlayer.play()
+}
