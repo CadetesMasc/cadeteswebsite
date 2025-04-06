@@ -1,143 +1,108 @@
-const images = [
-  'assets/1.jpg',
-  'assets/2.jpg',
-  'assets/3.jpg',
-  'assets/4.jpg',
-  'assets/5.jpg',
-  'assets/6.jpg',
-  'assets/7.jpg',
-  'assets/8.jpg',
-  'assets/9.jpg',
-  'assets/10.jpg',
-  'assets/11.jpg',
-  'assets/12.jpg',
-]
-
-let lastIndex = -1
-const body = document.body
-
-const bgElement = document.createElement('div')
-bgElement.id = 'bgElement'
-document.body.appendChild(bgElement)
-
-function changeBackground() {
-  if (!document.getElementById('home').classList.contains('active')) {
-    return
-  }
-
-  let randomIndex
-  do {
-    randomIndex = Math.floor(Math.random() * images.length)
-  } while (randomIndex === lastIndex)
-
-  lastIndex = randomIndex
-
-  const newBg = document.createElement('div')
-  newBg.style.position = 'fixed'
-  newBg.style.top = '0'
-  newBg.style.left = '0'
-  newBg.style.width = '100%'
-  newBg.style.height = '100%'
-  newBg.style.backgroundSize = 'cover'
-  newBg.style.backgroundPosition = 'center'
-  newBg.style.backgroundRepeat = 'no-repeat'
-  newBg.style.backgroundAttachment = 'fixed'
-  newBg.style.backgroundImage = `url(${images[randomIndex]})`
-  newBg.style.opacity = '0'
-  newBg.style.transition = 'opacity 1s ease-in-out'
-  newBg.style.zIndex = '-1'
-
-  document.body.appendChild(newBg)
-
-  setTimeout(() => {
-    newBg.style.opacity = '1'
-  }, 10)
-
-  setTimeout(() => {
-    bgElement.style.backgroundImage = `url(${images[randomIndex]})`
-    newBg.remove()
-  }, 1000)
-}
-
-function myFunction() {
-  var x = document.getElementById('myNavbar')
-  if (x.className === 'navbar') {
-    x.className += ' responsive'
-  } else {
-    x.className = 'navbar'
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  const links = document.querySelectorAll('.navbar a')
-
-  links.forEach((link) => {
-    link.addEventListener('click', function () {
-      links.forEach((l) => l.classList.remove('active'))
-      this.classList.add('active')
-    })
-  })
-})
-
 function showPage(pageId) {
-  document.querySelectorAll('.page').forEach((page) => {
-    page.classList.remove('active')
-  })
+  // Create and show loading screen with smooth transition
+  const loader = document.createElement('div')
+  loader.id = 'loading-screen'
 
-  const selectedPage = document.getElementById(pageId)
-  selectedPage.classList.add('active')
+  // Add image to loading screen
+  const img = document.createElement('img')
+  img.src = 'assets/loading.png' // Replace with the path to your image
+  img.alt = 'Loading...'
+  loader.appendChild(img)
 
-  if (pageId === 'videos') {
-    const videoPlayer = document.getElementById('videoPlayer')
-    if (videoPlayer && !videoPlayer.paused) {
-      videoPlayer.play()
+  document.body.appendChild(loader)
+
+  // Trigger fade-in transition by adding 'show' class
+  setTimeout(() => {
+    loader.classList.add('show')
+  }, 0)
+
+  setTimeout(() => {
+    // Hide all pages and remove active class
+    document.querySelectorAll('.page').forEach((page) => {
+      page.classList.remove('active')
+      page.style.display = 'none'
+    })
+
+    // Show the selected page
+    const selectedPage = document.getElementById(pageId)
+    if (selectedPage) {
+      selectedPage.classList.add('active')
+      selectedPage.style.display = 'block'
     }
-  } else {
-    const videoPlayer = document.getElementById('videoPlayer')
-    if (videoPlayer && !videoPlayer.paused) {
-      videoPlayer.pause()
-    }
-  }
 
-  document.getElementById(pageId).classList.add('active')
+    // Update navbar links
+    document.querySelectorAll('.navbar a').forEach((link) => {
+      link.classList.toggle(
+        'active',
+        link.getAttribute('onclick') === `showPage('${pageId}')`
+      )
+    })
 
-  document.querySelectorAll('.navbar a').forEach((link) => {
-    link.classList.remove('active')
-    if (link.getAttribute('onclick') === `showPage('${pageId}')`) {
-      link.classList.add('active')
-    }
-  })
-
-  if (pageId === 'home') {
-    bgElement.style.display = 'block'
-    changeBackground()
-  } else {
-    bgElement.style.display = 'none'
-  }
+    // Remove the loading screen with fade-out transition
+    setTimeout(() => {
+      loader.classList.remove('show') // Fade-out
+      setTimeout(() => {
+        document.body.removeChild(loader) // Remove it after fade-out is complete
+      }, 415) // Match the fade-out duration
+    }, 415) // You can adjust this timeout to match the content loading time
+  }, 415) // Adjust the delay to match the content transition time
 }
-
-if (document.getElementById('home').classList.contains('active')) {
-  bgElement.style.display = 'block'
-  changeBackground()
-}
-
-setInterval(() => {
-  if (document.getElementById('home').classList.contains('active')) {
-    changeBackground()
-  }
-}, 5000)
-
+// Function to toggle collapsible sections
 function toggleFolder(folderId) {
-  const folder = document.getElementById(folderId)
-
-  // Check if the folder content is hidden or not
-  if (folder.style.display === 'none' || folder.style.display === '') {
-    folder.style.display = 'block' // Show the folder content
-  } else {
-    folder.style.display = 'none' // Hide the folder content
-  }
+  let folder = document.getElementById(folderId)
+  folder.classList.toggle('hidden')
 }
 
+// Function to change the video source dynamically
 function changeIframe(url) {
   document.getElementById('myIframe').src = url
+}
+
+var swiper = new Swiper('.swiper', {
+  spaceBetween: 100,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+})
+
+var swiper2 = new Swiper('.swiper-container2', {
+  spaceBetween: 100,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+})
+
+swiper2.slideTo(5)
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('mobileSidebar')
+  const overlay = document.getElementById('overlay')
+
+  const isOpen = !sidebar.classList.contains('-translate-x-full')
+
+  if (isOpen) {
+    // Closing
+    sidebar.classList.add('-translate-x-full')
+
+    overlay.classList.remove('opacity-45') // remove your chosen opacity
+    overlay.classList.add('opacity-0')
+    overlay.classList.add('pointer-events-none')
+  } else {
+    // Opening
+    sidebar.classList.remove('-translate-x-full')
+
+    overlay.classList.remove('opacity-0')
+    overlay.classList.add('opacity-45') // or 25/75/90
+    overlay.classList.remove('pointer-events-none')
+  }
 }

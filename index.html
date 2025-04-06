@@ -6,121 +6,316 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>CD Fiães</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="icon" type="image/png" href="assets/icon.png">
 </head>
 
-<body>
+<body class="bg-zinc-800">
+  <header class="bg-zinc-900 shadow-md">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4">
+      <!-- Left side -->
+      <div class="flex items-center space-x-4">
+        <!-- Mobile menu button -->
+        <button class="text-zinc-100 text-2xl md:hidden" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <!-- Logo -->
+        <a class="text-zinc-100 text-2xl" href="#">CD Fiães</a>
+      </div>
 
-  <div class="navbar" id="myNavbar">
-    <a href="#" onclick="showPage('home'); return false;">Início</a>
-    <a href="#" onclick="showPage('team'); return false;">Equipa</a>
-    <a href="#" onclick="showPage('calendar'); return false;">Calendário</a>
-    <a href="#" onclick="showPage('videos'); return false;">Vídeos</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-      <i class="fa fa-bars"></i>
-    </a>
-  </div>
+      <!-- Desktop nav (top horizontal) -->
+      <div class="hidden md:flex space-x-6 text-zinc-100 font-semibold text-xl">
+        <a class="hover:underline" href="#" onclick="showPage('home'); return false;">Início</a>
+        <a class="hover:underline" href="#" onclick="showPage('team'); return false;">Equipa</a>
+        <a class="hover:underline" href="#" onclick="showPage('calender'); return false;">Calendário</a>
+        <a class="hover:underline" href="#" onclick="showPage('videos'); return false;">Vídeos</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Sidebar (hidden by default) -->
+  <div id="overlay"
+    class="fixed inset-0 bg-black opacity-0 pointer-events-none transition-opacity duration-300 z-40 md:hidden"
+    onclick="toggleSidebar()"></div>
+  <div id="mobileSidebar"
+    class="fixed top-0 left-0 h-full w-64 bg-[rgb(50,50,53)] text-zinc-100 p-6 transform -translate-x-full transition-transform duration-300 md:hidden z-50">
+    <button class="text-white text-3xl mb-6" onclick="toggleSidebar()">✕</button>
+    <nav class="flex flex-col space-y-4 mt-6 text-xl font-semibold">
+      <a class="hover:underline" href="#" onclick="showPage('home'); toggleSidebar(); return false;">Início</a>
+      <a class="hover:underline" href="#" onclick="showPage('team'); toggleSidebar(); return false;">Equipa</a>
+      <a class="hover:underline" href="#" onclick="showPage('calender'); toggleSidebar(); return false;">Calendário</>
+      <a class="hover:underline" href="#" onclick="showPage('videos'); toggleSidebar(); return false;">Vídeos</a>
+  </nav>
+</div>
+
 
   <div id="home" class="page active">
-    <div class="text-box">
-      <h1>Bem-vindo ao Cadetes Masculinos Fiães</h1>
-    </div>
+    <main class="container mx-auto py-10 px-6 overflow-y-hidden">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2">
+          <img alt="Team Photos" class="h-450 w-800 rounded-2xl" src="assets/hometab/7.jpg" />
+        </div>
+        <div class="flex items-center bg-zinc-600 rounded-2xl p-14 hidden md:flex">
+          <h2 class="md:text-6xl text-2xl font-normal text-center text-zinc-100 font-[Outfit]">
+            Bem-vindo ao Cadetes Masculinos Fiães
+          </h2>
+        </div>
+        <div class="md:hidden">
+          <h2 class="md:text-6xl text-4xl font-normal text-center text-zinc-100 font-[Outfit]">
+            Bem-vindo ao Cadetes Masculinos Fiães
+          </h2>
+        </div>
+      </div>
+
+      <div class="mt-[64px] flex hidden md:flex"">
+        <a href="#" onclick="showPage('calender'); return false;">
+          <img alt="Calendar" class="md:h-[480px] h-[336px] object-contain rounded-2xl mr-5"
+            src="assets/hometab/calender.png" />
+        </a>
+        <a href="https://www.instagram.com/cadjuvmasc_cdf/" target="_blank" rel="noopener noreferrer">
+          <img alt="Team Instagram" class="md:h-[480px] h-[336px] object-contain rounded-2xl mr-5"
+            src="assets/hometab/insta.png" />
+        </a>
+        <a href="#" onclick="showPage('calender'); return false;">
+          <img alt="Watch Games" class="md:h-[480px] h-[336px] object-contain rounded-2xl mr-5"
+            src="assets/hometab/videos.png" />
+        </a>
+      </div>
+
+      <div class="swiper mt-[98px] md:hidden">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="#" onclick="showPage('calender'); return false;">
+              <img alt="Calendar" class="h-[320px] object-contain rounded-2xl mx-auto mt-[8px] mb-10"
+              src="assets/hometab/calender.png" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="https://www.instagram.com/cadjuvmasc_cdf/" target="_blank" rel="noopener noreferrer">
+              <img alt="Team Instagram" class="h-[320px] object-contain rounded-2xl mx-auto mt-[8px] mb-10"
+              src="assets/hometab/insta.png" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="#" onclick="showPage('videos'); return false;">
+              <img alt="Watch Games" class="h-[320px] object-contain rounded-2xl mx-auto mt-[8px] mb-10"
+              src="assets/hometab/videos.png" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Paginação abaixo dos slides -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </main>
   </div>
 
   <div id="team" class="page">
-    <div class="text-box">
-      <h1>Página da Equipa</h1>
-      <p>Informação dos membros da equipa...</p>
+    <div class="container mx-auto py-10 px-6">
+      <h1 class="text-4xl text-white">Página da Equipa</h1>
+      <p class="text-lg text-gray-300">Por vir...</p>
     </div>
   </div>
 
-  <div id="calendar" class="page">
-    <div class="text-box">
-      <h1>Página do Calendário</h1>
-      <p>Agenda de jogos...</p>
+  <div id="calender" class="page">
+    <div class="container mx-auto py-10 px-6">
+      <h1 class="text-4xl text-white text-center mb-10">Página do Calendário</h1>
+
+      <div class="swiper-container2">
+
+        <div class="swiper-button-prev invisible md:visible"></div>
+        <div class="swiper-button-next invisible md:visible"></div>
+
+        <div class="swiper-pagination md:invisible mt-10"></div>
+
+        <div class="swiper-wrapper">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_novembro.png"alt="November Calender">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_dezembro.png" alt="December Calender">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_janeiro.png" alt="January Calender">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_fevereiro.png" alt="February Calender">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_marco.png" alt="March Calender">
+          <img class="swiper-slide h-[448px] md:h-[702px] object-contain" src="assets/calendertab/calendario_abril.png" alt="April Calender">
+        </div>
+
+      </div>
     </div>
   </div>
 
   <div id="videos" class="page">
+    <main class="container mx-full py-5 px-6 md:px-15">
+      <h1 class="text-4xl text-white mb-6 ml-32">Jogos</h1>
+      <div class="flex flex-col md:flex-row space-y-[80px] md:space-y-0">
+        <!-- RIGHT SIDE: Iframe -->
+        <div class="md:w-1/2 order-1 md:order-2 md:ml-[90px]">
+          <iframe id="myIframe" class="w-full md:w-[1356px] h-[186px] md:h-[756px] rounded-xl"
+            src="https://www.youtube.com/embed/2SjtkAu17TA?si=P_cGVRjv3DNsxmqC" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
 
-    <div class="sidebar">
-      <div class="text" id="text-bar">
-        <h1>Jogos</h1>
+        <!-- LEFT SIDE: Video Buttons -->
+        <div class="space-y-4 md:w-1/4 order-2 md:order-1">
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder1')"
+              class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Madalena - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder1" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/GnfW-hhzJNc?si=a86hRVhduGblaLUU')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/gZNxLXBciP4?si=nFa42IQJ9U7YOvop')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/3f2qnaGemNg?si=IIej62cMPF3BjfFT')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/391huizsH6Q?si=UkN_NJTAlIdv5jbA')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 4</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/78GxNXT_OWg?si=JJnjhBreV_nN2ME-')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 5</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder2')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Leixões - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder2" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/TBGqao79z9E?si=rS_zQaXqUf1tA8wA')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/S5L6q8lNN3s?si=bbaVihvQsqlsVzbq')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/4Aepth8eBWE?si=bPZ5_qzF5pHkxVme')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder3')"
+              class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Leixões - Jogo 2
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder3" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/D561rCJz5nU?si=vUoi1U8pp8cFPndQ')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/A2d_THywN1U?si=Dumf-eJaNby-58HG')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/vC6WG_ao8W4?si=438S2QSpSjGVNyz8')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder4')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Academicos - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder4" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/OuIlo7BDQIg?si=cruYcAEw9jbkgPEa')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/vJQtmpmVjeA?si=soBUIAAjdn1WH1Rw')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/XfNOsGpNn74?si=RDaN63dsmOCl1z_J')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder5')"
+              class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Academicos - Jogo 2
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder5" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/FdtCehGqVKA?si=ltYqGS8IlQLmocsp')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/W68Kqp0mAQI?si=fxBbPFSd086sopaj')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/lsKyS2HtsAY?si=0XFlQMfV4RP4xSoz')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/Xec4-vreGoM?si=586flnVZdMrlk38E')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 4</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/tf5QvXlklFI?si=gfcRN1WWevvLWOBC')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 5</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder6')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Esmoriz - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder6" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/8KqUnBZg_e8?si=YGfHYbsNhu12pZFU')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/IxdZCHM-ueQ?si=zlSHqpkER5hxqKLM')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/o8iNtnuHUpc?si=TMhFcg5cwX1zb9-k')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder7')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Esmoriz - Jogo 2
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder7" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/8KqUnBZg_e8?si=YGfHYbsNhu12pZFU')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/IxdZCHM-ueQ?si=zlSHqpkER5hxqKLM')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/o8iNtnuHUpc?si=TMhFcg5cwX1zb9-k')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder8')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X SC Espinho - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder8" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/WhnkJuROGPc?si=0bhLgvdpKWotzgHB')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/8FPQVo3_i0Q?si=zuJwO80Stf4iMaEp')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/RSLdeoVahcc?si=7LvsLH5PQRC9ZME4')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+          <div class="bg-zinc-700 rounded-lg p-3 md:p-4 w-full">
+            <button onclick="toggleFolder('folder9')" class="w-full text-left text-xl font-bold text-white flex justify-between">
+              CDF X Amares - Jogo 1
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div id="folder9" class="hidden mt-4 space-y-2">
+              <button onclick="changeIframe('https://www.youtube.com/embed/GjAI8A-l69U?si=wJ5esdefJdiudZq8')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 1</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/m4amlyREtiY?si=7Gn0DC4pUlsz_35l')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 2</button>
+              <button onclick="changeIframe('https://www.youtube.com/embed/T5lzkud3tq0?si=KAN-czccJbfCdmjd')"
+                class="w-full text-l text-white bg-zinc-600 rounded-lg p-2">Set 3</button>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="folder">
-        <button class="folder-btn" onclick="toggleFolder('folder2')">CDF X Madalena</button>
-        <ul id="folder2" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/GnfW-hhzJNc?si=a86hRVhduGblaLUU')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/gZNxLXBciP4?si=nFa42IQJ9U7YOvop')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/3f2qnaGemNg?si=IIej62cMPF3BjfFT')">Set 3</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/391huizsH6Q?si=UkN_NJTAlIdv5jbA')">Set 4</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/78GxNXT_OWg?si=JJnjhBreV_nN2ME-')">Set 5</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder3')">CDF X Academicos 1</button>
-        <ul id="folder3" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/OuIlo7BDQIg?si=cruYcAEw9jbkgPEa')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/vJQtmpmVjeA?si=soBUIAAjdn1WH1Rw')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/XfNOsGpNn74?si=RDaN63dsmOCl1z_J')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder7')">CDF X Academicos 2</button>
-        <ul id="folder7" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/FdtCehGqVKA?si=ltYqGS8IlQLmocsp')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/W68Kqp0mAQI?si=fxBbPFSd086sopaj')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/lsKyS2HtsAY?si=0XFlQMfV4RP4xSoz')">Set 3</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/Xec4-vreGoM?si=586flnVZdMrlk38E')">Set 4</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/tf5QvXlklFI?si=gfcRN1WWevvLWOBC')">Set 5</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder4')">CDF X Esmoriz 1</button>
-        <ul id="folder4" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/dNgoKMYqwG4?si=fkyWmggZM5iW4GXf')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/BxChPhD-CZc?si=dbjaA31hDiVzD5Xv')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/xQNu9gDj-bk?si=9I1HiyBtGxZhxd6w')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder1')">CDF X Esmoriz 2</button>
-        <ul id="folder1" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/8KqUnBZg_e8?si=YGfHYbsNhu12pZFU')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/IxdZCHM-ueQ?si=zlSHqpkER5hxqKLM')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/o8iNtnuHUpc?si=TMhFcg5cwX1zb9-k')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder5')">CDF X Leixoes</button>
-        <ul id="folder5" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/TBGqao79z9E?si=rS_zQaXqUf1tA8wA')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/S5L6q8lNN3s?si=bbaVihvQsqlsVzbq')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/4Aepth8eBWE?si=bPZ5_qzF5pHkxVme')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder6')">CDF X SC Espinho</button>
-        <ul id="folder6" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/WhnkJuROGPc?si=0bhLgvdpKWotzgHB')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/8FPQVo3_i0Q?si=zuJwO80Stf4iMaEp')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/RSLdeoVahcc?si=7LvsLH5PQRC9ZME4')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder8')">CDF X Amares</button>
-        <ul id="folder8" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/GjAI8A-l69U?si=wJ5esdefJdiudZq8')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/m4amlyREtiY?si=7Gn0DC4pUlsz_35l')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/T5lzkud3tq0?si=KAN-czccJbfCdmjd')">Set 3</button></li>
-        </ul>
-        <button class="folder-btn" onclick="toggleFolder('folder9')">CDF X Leixões</button>
-        <ul id="folder9" class="folder-content">
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/D561rCJz5nU?si=vUoi1U8pp8cFPndQ')">Set 1</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/A2d_THywN1U?si=Dumf-eJaNby-58HG')">Set 2</button></li>
-          <li><button onclick="changeIframe('https://www.youtube.com/embed/vC6WG_ao8W4?si=438S2QSpSjGVNyz8')">Set 3</button></li>
-        </ul>
-      </div>
-    </div>
-    <div class="video-player" id="video-box">
-      <iframe id="myIframe" width="100%" height="756" src="https://www.youtube.com/embed/2SjtkAu17TA?si=P_cGVRjv3DNsxmqC"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
+    </main>
   </div>
 
 
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
