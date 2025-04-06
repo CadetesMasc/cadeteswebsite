@@ -138,13 +138,6 @@ function toggleFolder(folderId) {
   }
 }
 
-function changeVideo(videoFile) {
-  var videoPlayer = document.getElementById('videoPlayer')
-
-  console.log('Changing video to:', videoFile)
-  videoPlayer.pause()
-  videoPlayer.currentTime = 0
-  videoPlayer.src = videoFile
-  videoPlayer.load()
-  videoPlayer.play()
+function changeIframe(url) {
+  document.getElementById('myIframe').src = url
 }
